@@ -3,6 +3,8 @@ const URLS_TO_CACHE = [
   '/',
   '/index.html',
   '/manifest.json'
+  '/icon-192.png',
+  '/icon-512.png'
 ];
 
 // Install event - cache essential files
@@ -10,7 +12,6 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(URLS_TO_CACHE).catch(() => {
-        // If addAll fails, that's ok - we'll cache dynamically
         return Promise.resolve();
       });
     })
@@ -45,7 +46,6 @@ self.addEventListener('fetch', (event) => {
 
       // Otherwise fetch from network
       return fetch(event.request).then((response) => {
-        // Cache successful responses (but not for non-GET requests)
         if (!response || response.status !== 200 || event.request.method !== 'GET') {
           return response;
         }
