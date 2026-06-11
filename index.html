@@ -1,52 +1,65 @@
-
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#534AB7">
+  <meta name="description" content="American Slang Dictionary - 搜索英语俚语，查看中文释义">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="俚语词典">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='50' font-size='80' dominant-baseline='middle' text-anchor='middle'>📖</text></svg>">
+  <title>美式俚语词典</title>
+</head>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-.app { padding: 1.5rem 1rem 3rem; max-width: 700px; margin: 0 auto; font-family: var(--font-sans); }
-.header { text-align: center; margin-bottom: 1.75rem; }
-.title { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
-.subtitle { font-size: 14px; color: var(--color-text-secondary); margin-top: 4px; }
-.add-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 18px; font-size: 14px; font-weight: 500; background: #EEEDFE; color: #534AB7; border: 0.5px solid #AFA9EC; border-radius: var(--border-radius-lg); cursor: pointer; margin-bottom: 1.25rem; width: 100%; transition: background 0.15s; }
-.add-btn:hover { background: #CECBF6; }
-.search-wrap { margin-bottom: 1rem; }
-.search-wrap input { width: 100%; padding: 10px 14px; font-size: 15px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-lg); background: var(--color-background-primary); color: var(--color-text-primary); }
-.search-wrap input:focus { outline: none; border-color: #7F77DD; box-shadow: 0 0 0 2px rgba(127,119,221,0.15); }
-.filter-row { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; align-items: center; }
-.fb { padding: 5px 13px; font-size: 13px; border: 0.5px solid var(--color-border-secondary); border-radius: 999px; background: var(--color-background-secondary); color: var(--color-text-secondary); cursor: pointer; }
-.fb.on { background: #EEEDFE; color: #534AB7; border-color: #AFA9EC; font-weight: 500; }
-.count { font-size: 13px; color: var(--color-text-secondary); margin-left: auto; }
-.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 0.9rem 1.1rem; margin-bottom: 8px; cursor: pointer; }
-.card.open { border-color: #AFA9EC; }
-.card-top { display: flex; align-items: flex-start; gap: 10px; }
-.tag { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 999px; flex-shrink: 0; margin-top: 3px; }
-.t-abbrev { background: #E6F1FB; color: #185FA5; }
-.t-genz   { background: #EEEDFE; color: #534AB7; }
-.t-internet { background: #FAECE7; color: #993C1D; }
-.t-social { background: #FBEAF0; color: #993556; }
-.t-emoji  { background: #EAF3DE; color: #3B6D11; }
-.t-misc   { background: #F1EFE8; color: #5F5E5A; }
-.card-term { font-size: 16px; font-weight: 500; color: var(--color-text-primary); }
-.card-pron { font-size: 12px; color: var(--color-text-tertiary); font-style: italic; margin-top: 1px; }
-.card-preview { font-size: 13px; color: var(--color-text-secondary); margin-top: 3px; }
-.chevron { font-size: 15px; color: var(--color-text-tertiary); margin-top: 3px; flex-shrink: 0; }
-.body { display: none; margin-top: 10px; padding-top: 10px; border-top: 0.5px solid var(--color-border-tertiary); }
-.card.open .body { display: block; }
-.dlabel { font-size: 11px; color: var(--color-text-tertiary); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
-.dval { font-size: 14px; color: var(--color-text-primary); line-height: 1.6; margin-bottom: 9px; }
-.empty { text-align: center; padding: 3rem 1rem; color: var(--color-text-secondary); }
-.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 50; align-items: center; justify-content: center; }
-.overlay.show { display: flex; }
-.modal { background: #ffffff; color:#222; box-shadow:0 8px 30px rgba(0,0,0,.25); border-radius: var(--border-radius-xl); padding: 1.5rem; width: 90%; max-width: 460px; border: 0.5px solid var(--color-border-secondary); max-height: 90vh; overflow-y: auto; }
-.modal h3 { font-size: 17px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 1.25rem; }
-.fg { margin-bottom: 0.85rem; }
-.fg label { display: block; font-size: 13px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 4px; }
-.fg input, .fg select { width:100%; padding:9px 12px; font-size:14px; border:1px solid #ccc; border-radius:8px; background:#fff; color:#222; }
-.fg input:focus, .fg select:focus { outline: none; border-color: #7F77DD; }
-.mactions { display: flex; gap: 8px; margin-top: 1.25rem; }
-.btn-save { flex: 1; padding: 10px; background: #534AB7; color: #fff; border: none; border-radius: var(--border-radius-md); font-size: 14px; font-weight: 500; cursor: pointer; }
-.btn-save:hover { background: #3C3489; }
-.btn-cancel { padding: 10px 16px; background: transparent; color: var(--color-text-secondary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 14px; cursor: pointer; }
-.toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(80px); background: #3C3489; color: #fff; padding: 10px 20px; border-radius: 999px; font-size: 14px; opacity: 0; transition: all 0.3s; z-index: 200; pointer-events: none; }
-.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .app { padding: 1.5rem 1rem 3rem; max-width: 700px; margin: 0 auto; font-family: Arial, Helvetica, sans-serif; }
+  .header { text-align: center; margin-bottom: 1.75rem; }
+  .title { font-size: 22px; font-weight: 500; color: #222222; }
+  .subtitle { font-size: 14px; color: #666666; margin-top: 4px; }
+  .add-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 18px; font-size: 14px; font-weight: 500; background: #EEEDFE; color: #534AB7; border: 0.5px solid #AFA9EC; border-radius: 12px; cursor: pointer; margin-bottom: 1.25rem; width: 100%; transition: background 0.15s; }
+  .add-btn:hover { background: #CECBF6; }
+  .search-wrap { margin-bottom: 1rem; }
+  .search-wrap input { width: 100%; padding: 10px 14px; font-size: 15px; border: 0.5px solid #d0d0d0; border-radius: 12px; background: #ffffff; color: #222222; }
+  .search-wrap input:focus { outline: none; border-color: #7F77DD; box-shadow: 0 0 0 2px rgba(127,119,221,0.15); }
+  .filter-row { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; align-items: center; }
+  .fb { padding: 5px 13px; font-size: 13px; border: 0.5px solid #d0d0d0; border-radius: 999px; background: #f5f5f5; color: #666666; cursor: pointer; }
+  .fb.on { background: #EEEDFE; color: #534AB7; border-color: #AFA9EC; font-weight: 500; }
+  .count { font-size: 13px; color: #666666; margin-left: auto; }
+  .card { background: #ffffff; border: 0.5px solid #e5e5e5; border-radius: 12px; padding: 0.9rem 1.1rem; margin-bottom: 8px; cursor: pointer; }
+  .card.open { border-color: #AFA9EC; }
+  .card-top { display: flex; align-items: flex-start; gap: 10px; }
+  .tag { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 999px; flex-shrink: 0; margin-top: 3px; }
+  .t-abbrev { background: #E6F1FB; color: #185FA5; }
+  .t-genz   { background: #EEEDFE; color: #534AB7; }
+  .t-internet { background: #FAECE7; color: #993C1D; }
+  .t-social { background: #FBEAF0; color: #993556; }
+  .t-emoji  { background: #EAF3DE; color: #3B6D11; }
+  .t-misc   { background: #F1EFE8; color: #5F5E5A; }
+  .card-term { font-size: 16px; font-weight: 500; color: #222222; }
+  .card-pron { font-size: 12px; color: #888888; font-style: italic; margin-top: 1px; }
+  .card-preview { font-size: 13px; color: #666666; margin-top: 3px; }
+  .chevron { font-size: 15px; color: #888888; margin-top: 3px; flex-shrink: 0; }
+  .body { display: none; margin-top: 10px; padding-top: 10px; border-top: 0.5px solid #e5e5e5; }
+  .card.open .body { display: block; }
+  .dlabel { font-size: 11px; color: #888888; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+  .dval { font-size: 14px; color: #222222; line-height: 1.6; margin-bottom: 9px; }
+  .empty { text-align: center; padding: 3rem 1rem; color: #666666; }
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 50; align-items: center; justify-content: center; }
+  .overlay.show { display: flex; }
+  .modal { background: #ffffff; color:#222; box-shadow:0 8px 30px rgba(0,0,0,.25); border-radius: 16px; padding: 1.5rem; width: 90%; max-width: 460px; border: 0.5px solid #d0d0d0; max-height: 90vh; overflow-y: auto; }
+  .modal h3 { font-size: 17px; font-weight: 500; color: #222222; margin-bottom: 1.25rem; }
+  .fg { margin-bottom: 0.85rem; }
+  .fg label { display: block; font-size: 13px; font-weight: 500; color: #666666; margin-bottom: 4px; }
+  .fg input, .fg select { width:100%; padding:9px 12px; font-size:14px; border:1px solid #ccc; border-radius:8px; background:#fff; color:#222; }
+  .fg input:focus, .fg select:focus { outline: none; border-color: #7F77DD; }
+  .mactions { display: flex; gap: 8px; margin-top: 1.25rem; }
+  .btn-save { flex: 1; padding: 10px; background: #534AB7; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; }
+  .btn-save:hover { background: #3C3489; }
+  .btn-cancel { padding: 10px 16px; background: transparent; color: #666666; border: 0.5px solid #d0d0d0; border-radius: 8px; font-size: 14px; cursor: pointer; }
+  .toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(80px); background: #3C3489; color: #fff; padding: 10px 20px; border-radius: 999px; font-size: 14px; opacity: 0; transition: all 0.3s; z-index: 200; pointer-events: none; }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 </style>
 
 <div class="app">
@@ -106,440 +119,357 @@
 <div class="toast" id="toast"></div>
 
 <script>
-var TERMS = [
-  {id:1,term:"67",pron:"six-seven",lit:"无",zh:"我也不知道，好像是什么歌的歌词。小孩子用的比较频繁。",en:"",cat:"internet"},
-  {id:2,term:"AF",pron:"A-F",lit:"非常",zh:'"It\'s hot AF" 真的好热',en:"As Fuck",cat:"abbrev"},
-  {id:3,term:"AFAIK",pron:"",lit:"据我所知",zh:"",en:"As Far As I Know",cat:"abbrev"},
-  {id:4,term:"AFAIR",pron:"",lit:"根据我所记得的",zh:"",en:"As Far As I Remember",cat:"abbrev"},
-  {id:5,term:"AFAIC",pron:"",lit:"依我看",zh:"",en:"As Far As I'm Concerned",cat:"abbrev"},
-  {id:6,term:"AFK",pron:"",lit:"没在键盘跟前",zh:"表示某人在忙其他的、大概率是不能打字的事。现在很少用。",en:"Away From Keyboard",cat:"abbrev"},
-  {id:7,term:"And I Oop",pron:"",lit:"哦是吗 / 真的吗",zh:"感叹句，用来锐评有点丢人的事情。",en:"",cat:"genz"},
-  {id:8,term:"ASAP",pron:"A-S-A-P / ay-sap",lit:"尽快，越快越好",zh:"",en:"As Soon As Possible",cat:"abbrev"},
-  {id:9,term:"Ate",pron:"",lit:"燃爆了，表现得太好了",zh:'"She ate" 她表现得太好了',en:"",cat:"genz"},
-  {id:10,term:"Aura",pron:"",lit:"感觉，氛围",zh:'跟"vibe"类似。',en:"",cat:"genz"},
-  {id:11,term:"Baddie",pron:"",lit:"非常时尚、漂亮、有魅力的女人",zh:'"She\'s a baddie" 她太时髦了',en:"",cat:"social"},
-  {id:12,term:"BAE",pron:"bay",lit:"宝贝儿",zh:"亲密朋友之间的称呼。非常随意。",en:"Before Anyone Else / Baby",cat:"social"},
-  {id:13,term:"Based",pron:"",lit:"很好",zh:"说实话我也不太懂，应该是做的很好的意思。",en:"",cat:"internet"},
-  {id:14,term:"Basic",pron:"",lit:"无聊，基础",zh:'"She\'s basic" 她真的好无趣',en:"",cat:"social"},
-  {id:15,term:"BB",pron:"B-B",lit:"宝贝儿",zh:"用于朋友之间。",en:"Baby",cat:"social"},
-  {id:16,term:"BDE",pron:"B-D-E",lit:"贼有气场",zh:"用来形容很有信心的人。",en:"Big Dick Energy",cat:"internet"},
-  {id:17,term:"Bedrotting",pron:"",lit:"瘫在床上",zh:"待在床上什么也不干。可能是心理上不健康的表现。",en:"",cat:"genz"},
-  {id:18,term:"Bestie",pron:"",lit:"闺蜜",zh:"可用于表达讽刺，看情况。",en:"Best Friend",cat:"social"},
-  {id:19,term:"Bet",pron:"",lit:"成，中",zh:"好、可以的意思",en:"",cat:"genz"},
-  {id:20,term:"BFF(L)",pron:"B-F-F-(L) / biffle",lit:"(永远)最好的闺蜜",zh:"近些年用的比较少。",en:"Best Friend Forever (For Life)",cat:"social"},
-  {id:21,term:"BFFR",pron:"",lit:"你他妈认真的吗",zh:"",en:"Be Fucking For Real",cat:"abbrev"},
-  {id:22,term:"Boi",pron:"",lit:"男孩",zh:"",en:"Boy",cat:"genz"},
-  {id:23,term:"Bop",pron:"",lit:"好听的歌",zh:"",en:"",cat:"genz"},
-  {id:24,term:"Bougie",pron:"",lit:"小资",zh:"",en:"",cat:"social"},
-  {id:25,term:"Boutta",pron:"",lit:"准备做某件事",zh:"",en:"About to",cat:"genz"},
-  {id:26,term:"Brainrot",pron:"",lit:"让脑子烂掉的东西",zh:"脑残但很上瘾的网络上的东西，比如说tiktok",en:"",cat:"internet"},
-  {id:27,term:"BRB",pron:"B-R-B",lit:"我马上回来",zh:"",en:"Be Right Back",cat:"abbrev"},
-  {id:28,term:"Bro",pron:"",lit:"兄弟",zh:"",en:"",cat:"social"},
-  {id:29,term:"Bruh",pron:"",lit:"兄弟（带无语语气）",zh:"",en:"",cat:"genz"},
-  {id:30,term:"Bussin'",pron:"",lit:"非常好",zh:"",en:"",cat:"genz"},
-  {id:31,term:"Cancelled",pron:"",lit:"被取消资格",zh:'用于有争议的人，可以是幽默的用意。"She\'s cancelled" 她完蛋了。',en:"",cat:"internet"},
-  {id:32,term:"Cap",pron:"",lit:"说谎，谎言",zh:'"No cap" 真的，确实',en:"",cat:"genz"},
-  {id:33,term:"Catch Hands",pron:"",lit:"打架",zh:"",en:"",cat:"genz"},
-  {id:34,term:"Chat",pron:"",lit:"聊天室",zh:'用于跟很多人对话时，也可指ChatGPT。相当于"You guys"、"Everyone"',en:"",cat:"internet"},
-  {id:35,term:"Chill",pron:"",lit:"放松，别担心",zh:"",en:"",cat:"genz"},
-  {id:36,term:"Chopped",pron:"",lit:"丑",zh:"",en:"",cat:"social"},
-  {id:37,term:"Clocked",pron:"",lit:"我就知道",zh:'"I clocked that he was lying" 我就知道他在撒谎',en:"",cat:"genz"},
-  {id:38,term:"Cook / Cooking",pron:"",lit:"做得好",zh:'"She\'s cooking" 她做的好',en:"",cat:"genz"},
-  {id:39,term:"Cooked",pron:"",lit:"完了，完蛋了",zh:'"She\'s cooked" 她完蛋了',en:"",cat:"genz"},
-  {id:40,term:"Crash out",pron:"",lit:"发飙",zh:"",en:"",cat:"genz"},
-  {id:41,term:"Cringe",pron:"",lit:"丢人",zh:"",en:"",cat:"internet"},
-  {id:42,term:"Crying",pron:"",lit:"我哭了我又哭了",zh:"大多表示喜极而泣。",en:"",cat:"genz"},
-  {id:43,term:"Dead",pron:"",lit:"我死了我又死了",zh:"大多表示太好笑了。",en:"",cat:"genz"},
-  {id:44,term:"Deadass",pron:"",lit:"真的，没开玩笑",zh:"",en:"",cat:"genz"},
-  {id:45,term:"Delulu",pron:"",lit:"妄想的，幻想的",zh:"",en:"Delusional",cat:"internet"},
-  {id:46,term:"DM",pron:"D-M",lit:"私信",zh:"",en:"Direct Message",cat:"abbrev"},
-  {id:47,term:"Drip",pron:"",lit:"时髦的衣服",zh:"",en:"",cat:"genz"},
-  {id:48,term:"Extra",pron:"",lit:"太过头了",zh:"",en:"",cat:"social"},
-  {id:49,term:"Facts",pron:"",lit:"真实的，我同意",zh:"",en:"",cat:"genz"},
-  {id:50,term:"Fam",pron:"",lit:"家人们",zh:"",en:"Family",cat:"social"},
-  {id:51,term:"Fine shyt/shit",pron:"",lit:"很漂亮的人",zh:"非常随意。",en:"",cat:"social"},
-  {id:52,term:"Finna",pron:"",lit:"准备做某件事",zh:"",en:"Gonna / going to",cat:"genz"},
-  {id:53,term:"Fire",pron:"",lit:"燃，非常好",zh:"",en:"",cat:"genz"},
-  {id:54,term:"Fit",pron:"",lit:"服装，衣服，或身材很好",zh:'"Her fit is fire" 她的衣服很好看',en:"",cat:"genz"},
-  {id:55,term:"Flex",pron:"",lit:"炫耀，吹牛",zh:"",en:"",cat:"social"},
-  {id:56,term:"Flop",pron:"",lit:"失败",zh:"",en:"",cat:"internet"},
-  {id:57,term:"FOMO",pron:"foh-moh",lit:"害怕错过",zh:"近些年比较少用。",en:"Fear Of Missing Out",cat:"abbrev"},
-  {id:58,term:"FR",pron:"",lit:"真的",zh:"",en:"For Real",cat:"abbrev"},
-  {id:59,term:"Fruity",pron:"",lit:"gaygay的",zh:"大多指对于他人的一种感觉。",en:"",cat:"social"},
-  {id:60,term:"FTW",pron:"",lit:"……必胜",zh:'"Our department FTW" 我们系必胜/最好',en:"For The Win",cat:"abbrev"},
-  {id:61,term:"FWIW",pron:"",lit:"依我所见",zh:"在表达自己的观点时显得谦虚或不确定。",en:"For What It's Worth",cat:"abbrev"},
-  {id:62,term:"Function",pron:"",lit:"聚会",zh:'跟"party"差不多',en:"",cat:"social"},
-  {id:63,term:"FYI",pron:"F-Y-I",lit:"你应当知道……",zh:"可用于专业场合或表达讽刺，看情况。",en:"For Your Information",cat:"abbrev"},
-  {id:64,term:"Gagged",pron:"",lit:"无语",zh:"",en:"",cat:"genz"},
-  {id:65,term:"GD",pron:"",lit:"哦上帝啊",zh:"",en:"God Damn",cat:"abbrev"},
-  {id:66,term:"Ghost",pron:"",lit:"突然断绝联系",zh:"",en:"",cat:"social"},
-  {id:67,term:"GL",pron:"",lit:"祝你好运",zh:"",en:"Good Luck",cat:"abbrev"},
-  {id:68,term:"Glaze",pron:"",lit:"过于吹嘘",zh:'"Stop glazing that thing" 别再吹那东西有多好了',en:"",cat:"genz"},
-  {id:69,term:"Glizzy",pron:"",lit:"火腿肠",zh:"",en:"Hot dog",cat:"genz"},
-  {id:70,term:"Glow Up",pron:"",lit:"变漂亮了",zh:"",en:"",cat:"social"},
-  {id:71,term:"Go Off",pron:"",lit:"你骂的好爽，尽情去骂",zh:"",en:"",cat:"genz"},
-  {id:72,term:"GOAT",pron:"",lit:"全世界永远的第一名",zh:"现在大多用于表示某人很厉害。",en:"Greatest Of All Time",cat:"abbrev"},
-  {id:73,term:"Gng",pron:"",lit:"我的朋友们",zh:"",en:"Gang",cat:"social"},
-  {id:74,term:"GTG / g2g",pron:"G-T-G",lit:"我该走了",zh:"一般用于道别，也可以用在句子里以代表需要去某个地方。",en:"Got To Go",cat:"abbrev"},
-  {id:75,term:"Gucci",pron:"",lit:"好",zh:"",en:"Good",cat:"genz"},
-  {id:76,term:"Gurl",pron:"",lit:"女孩儿",zh:"",en:"Girl",cat:"social"},
-  {id:77,term:"Highkey",pron:"",lit:"很明显的",zh:'"I\'m highkey want that" 我确实很想要那个。"Lowkey"的反义词。',en:"",cat:"genz"},
-  {id:78,term:"Hits Different",pron:"",lit:"给我不同的感受",zh:"",en:"",cat:"genz"},
-  {id:79,term:"Hop Off",pron:"",lit:"别烦我",zh:"",en:"",cat:"genz"},
-  {id:80,term:"HMU",pron:"",lit:"联系我",zh:"大多用于非常随意的场合。",en:"Hit Me Up",cat:"abbrev"},
-  {id:81,term:"Ick",pron:"",lit:"恶心",zh:"",en:"",cat:"genz"},
-  {id:82,term:"ICYMI",pron:"",lit:"如果你错过了……",zh:"",en:"In Case You Missed It",cat:"abbrev"},
-  {id:83,term:"ID(F)C",pron:"",lit:"我（他妈的）不在乎",zh:"",en:"I Don't (Fucking) Care",cat:"abbrev"},
-  {id:84,term:"ID(F)K",pron:"I-D-K",lit:"我（他妈的）不知道",zh:"",en:"I Don't (Fucking) Know",cat:"abbrev"},
-  {id:85,term:"IIRC",pron:"",lit:"我没记错的话",zh:"",en:"If I Recall Correctly",cat:"abbrev"},
-  {id:86,term:"IJBOL",pron:"ih-zh-ball",lit:"我刚刚笑出声了",zh:"",en:"I Just Burst Out Laughing",cat:"abbrev"},
-  {id:87,term:"ILY",pron:"ih-lee",lit:"爱你哟",zh:"偏俏皮或不太郑重的用意。大多用于朋友或同僚之间。",en:"I Love You",cat:"abbrev"},
-  {id:88,term:"IM(H)O",pron:"I-M-O",lit:"我（真实）的想法是……",zh:"用于表达个人的想法，尤其当其想法可能与他人不一样时。",en:"In My (Honest) Opinion",cat:"abbrev"},
-  {id:89,term:"iPad Kid",pron:"",lit:"看ipad长大的小孩",zh:"离不开手机的小孩。也可用于讽刺大人。",en:"",cat:"internet"},
-  {id:90,term:"IRL",pron:"I-R-L",lit:"在现实生活中",zh:"用于网络上可指现实生活中认识的人。",en:"In Real Life",cat:"abbrev"},
-  {id:91,term:"It's Giving",pron:"",lit:"它给我的感觉是……",zh:"",en:"",cat:"genz"},
-  {id:92,term:"IYKYK",pron:"",lit:"懂得都懂",zh:"",en:"If You Know, You Know",cat:"abbrev"},
-  {id:93,term:"JFC",pron:"",lit:"我他妈的",zh:"感叹句。用于十分无语的时候。",en:"Jesus Fucking Christ",cat:"abbrev"},
-  {id:94,term:"JK",pron:"J-K",lit:"开玩笑的",zh:"",en:"Just Kidding",cat:"abbrev"},
-  {id:95,term:"JSYK",pron:"",lit:"我告诉你哈",zh:"可以是善意或恶意，看情况。",en:"Just So You Know",cat:"abbrev"},
-  {id:96,term:"Karen",pron:"",lit:"不讲理的大妈",zh:"近些年有些侮辱性。",en:"",cat:"social"},
-  {id:97,term:"KMS",pron:"K-M-S",lit:"我要自杀",zh:"大多用于抱怨。",en:"Kill MySelf",cat:"abbrev"},
-  {id:98,term:"KYS",pron:"K-Y-S",lit:"你自杀去",zh:"属于辱骂。",en:"Kill YourSelf",cat:"abbrev"},
-  {id:99,term:"L",pron:"",lit:"输了，失败，败者",zh:'"Take the L" 接受失败吧',en:"",cat:"genz"},
-  {id:100,term:"Let's Get This Bread",pron:"",lit:"咱来赚这个钱吧",zh:"我们一起努力工作。",en:"",cat:"genz"},
-  {id:101,term:"Lit",pron:"",lit:"好玩，燃爆了，太好了",zh:"",en:"",cat:"genz"},
-  {id:102,term:"LM(F)AO",pron:"L-M-A-O / le-maw",lit:"（他妈的）笑掉大牙",zh:"大写用于真正好笑的时候。小写可以表达讽刺。",en:"Laughing My (Fucking) Ass Off",cat:"abbrev"},
-  {id:103,term:"Locked In",pron:"",lit:"极度专注",zh:'"You\'re locked in" 你太专注了吧',en:"",cat:"genz"},
-  {id:104,term:"LOL",pron:"lawl",lit:"开怀大笑",zh:"大写用于真正好笑的时候。小写可以表达讽刺或做缓冲词。可以当句号使用。",en:"Laughing Out Loud",cat:"abbrev"},
-  {id:105,term:"Lowkey",pron:"",lit:"不是很明显的",zh:'"I lowkey want that" 我其实有点想要那个。',en:"",cat:"genz"},
-  {id:106,term:"MAGA",pron:"ma-ga",lit:"特朗普的小跟班儿",zh:"用来讽刺那些认为特朗普说什么都对的人。比较有辱骂性。",en:"Make America Great Again",cat:"internet"},
-  {id:107,term:"Menty B",pron:"",lit:"精神崩溃",zh:"",en:"Mental breakdown",cat:"genz"},
-  {id:108,term:"Mid",pron:"",lit:"平庸，普通，还行吧",zh:"",en:"",cat:"genz"},
-  {id:109,term:"Mood",pron:"",lit:"心情",zh:"意思为我能理解，感同身受。",en:"",cat:"genz"},
-  {id:110,term:"NBD",pron:"",lit:"又不是啥大事",zh:"",en:"No Big Deal",cat:"abbrev"},
-  {id:111,term:"NGL",pron:"N-G-L",lit:"说实在的",zh:'可用于比较无语时。或者你平时怎么用"说实在的"就怎么用。',en:"Not Gonna Lie",cat:"abbrev"},
-  {id:112,term:"NSFW",pron:"N-S-F-W",lit:"上班时间不许看",zh:"大多用来表示有黄色内容。",en:"Not Safe For Work",cat:"abbrev"},
-  {id:113,term:"OK Boomer",pron:"",lit:"好吧，大妈 / 大爷",zh:"轻视中/老年人的意见或想法。近些年有些辱骂性。",en:"",cat:"internet"},
-  {id:114,term:"OM(F)G",pron:"O-M-G / ohm-guh",lit:"我（他妈的）的天哪",zh:"",en:"Oh My (Fucking) God",cat:"abbrev"},
-  {id:115,term:"OMW",pron:"",lit:"我在路上了，我出发了",zh:"",en:"On My Way",cat:"abbrev"},
-  {id:116,term:"Oof",pron:"",lit:"哎呀，不好",zh:"",en:"",cat:"genz"},
-  {id:117,term:"Out of pocket",pron:"",lit:"极端",zh:"",en:"",cat:"genz"},
-  {id:118,term:"Period(t)",pron:"",lit:"话题终止",zh:'有种"我说的就是对的"的意思',en:"",cat:"genz"},
-  {id:119,term:"Pick-Me",pron:"",lit:"装逼的人，做作的人",zh:"",en:"",cat:"social"},
-  {id:120,term:"PMO",pron:"P-M-O",lit:"让我生气",zh:"",en:"Piss Me Off",cat:"abbrev"},
-  {id:121,term:"Pog / Poggers",pron:"",lit:"酷",zh:"基本没人用了。",en:"",cat:"internet"},
-  {id:122,term:"Pookie",pron:"",lit:"宝贝儿",zh:"也可用于讽刺。",en:"",cat:"social"},
-  {id:123,term:"Ppl",pron:"",lit:"人，人们",zh:"",en:"People",cat:"abbrev"},
-  {id:124,term:"Pressed",pron:"",lit:"生气",zh:'"Why is she so pressed" 她为什么那么生气',en:"",cat:"social"},
-  {id:125,term:"Receipts",pron:"",lit:"证据",zh:"",en:"",cat:"genz"},
-  {id:126,term:"Rent Free",pron:"",lit:"无房租",zh:"意为什么东西在脑里挥之不去。",en:"",cat:"genz"},
-  {id:127,term:"RIP",pron:"R-I-P",lit:"请安息吧",zh:'有时可用直译，大多随意用意为"得，好吧"类似。',en:"Rest In Peace",cat:"abbrev"},
-  {id:128,term:"Rizz",pron:"",lit:"魅力",zh:"",en:"",cat:"genz"},
-  {id:129,term:"RN",pron:"",lit:"现在",zh:"",en:"Right Now",cat:"abbrev"},
-  {id:130,term:"Salty",pron:"",lit:"怨恨的，恼羞成怒",zh:"形容人的词。",en:"",cat:"social"},
-  {id:131,term:"Say Less",pron:"",lit:"不用多说",zh:"我都明白，我明白了。",en:"",cat:"genz"},
-  {id:132,term:"Sending Me",pron:"",lit:"让我觉得很好笑",zh:"",en:"",cat:"genz"},
-  {id:133,term:"Serving",pron:"",lit:"表现得很自信，穿的衣服很好看",zh:"",en:"",cat:"genz"},
-  {id:134,term:"SFW",pron:"",lit:"上班时间可以看",zh:"大多表示没有黄色内容。",en:"Safe For Work",cat:"abbrev"},
-  {id:135,term:"Shook",pron:"",lit:"震惊",zh:"",en:"Shocked",cat:"genz"},
-  {id:136,term:"Simp",pron:"",lit:"舔狗",zh:"",en:"",cat:"social"},
-  {id:137,term:"Sis",pron:"",lit:"姐妹",zh:"",en:"",cat:"social"},
-  {id:138,term:"Skill issue",pron:"",lit:"你太菜了",zh:"",en:"",cat:"internet"},
-  {id:139,term:"Sksksk",pron:"",lit:"笑",zh:'相当于"LOL"。近些年很少用。',en:"",cat:"internet"},
-  {id:140,term:"Slaps",pron:"",lit:"很好",zh:"",en:"",cat:"genz"},
-  {id:141,term:"Slay",pron:"",lit:"很好",zh:"",en:"",cat:"genz"},
-  {id:142,term:"Sleep On",pron:"",lit:"忽略了某件事/人的才华",zh:"",en:"",cat:"genz"},
-  {id:143,term:"Slop",pron:"",lit:"猪食",zh:"网络上导致脑残的东西，比如AI生成的照片或影片",en:"",cat:"internet"},
-  {id:144,term:"SM(F)H",pron:"S-M-H",lit:"我在（他妈的）摇头",zh:"用于无语时，尤其对于某件事或某人做的某件事。",en:"Shaking My (Fucking) Head",cat:"abbrev"},
-  {id:145,term:"Snatched",pron:"",lit:"很漂亮",zh:"尤其腰很窄",en:"",cat:"genz"},
-  {id:146,term:"Srs(ly)",pron:"",lit:"真的",zh:"",en:"Serious(ly)",cat:"abbrev"},
-  {id:147,term:"Stan",pron:"",lit:"支持",zh:"",en:"",cat:"social"},
-  {id:148,term:"Sus",pron:"",lit:"可疑",zh:"",en:"Suspicious",cat:"internet"},
-  {id:149,term:"SYBAU",pron:"",lit:"你他妈的可闭嘴吧",zh:"",en:"Shut Your Bitch Ass Up",cat:"abbrev"},
-  {id:150,term:"Tea",pron:"",lit:"闲话",zh:'"Spill the tea" 咱一起嚼舌根子吧',en:"",cat:"social"},
-  {id:151,term:"TBH",pron:"T-B-H",lit:"说实在的",zh:'相对于"NGL"少了些无语，日常生活中随处可用。',en:"To Be Honest",cat:"abbrev"},
-  {id:152,term:"TFW / MFW",pron:"",lit:"此刻我的心情是……",zh:"用于无语的时候。",en:"That Feeling When / My Feelings When",cat:"abbrev"},
-  {id:153,term:"TIL",pron:"T-I-L",lit:"今天我学到了……",zh:"",en:"Today I Learned",cat:"abbrev"},
-  {id:154,term:"TLDR",pron:"T-L-D-R",lit:"太长了，我没读",zh:"大多用于自己写小作文时在最后加上概括。也可用于概括发生过的很曲折的事。",en:"Too Long, Didn't Read",cat:"abbrev"},
-  {id:155,term:"Touch Grass",pron:"",lit:"去外面站会",zh:"潜在意思是别看手机了，去跟真正的人类说说话。",en:"",cat:"internet"},
-  {id:156,term:"TTYL",pron:"T-T-Y-L",lit:"咱待会聊天",zh:"",en:"Talk To You Later",cat:"abbrev"},
-  {id:157,term:"TS",pron:"",lit:"这个东西，这事 / Taylor Swift",zh:"",en:"This Shit",cat:"abbrev"},
-  {id:158,term:"Tweaking",pron:"",lit:"表现得很奇怪",zh:"",en:"",cat:"genz"},
-  {id:159,term:"Twin",pron:"",lit:"很好的朋友",zh:"或跟你很相似的朋友",en:"",cat:"social"},
-  {id:160,term:"Unc",pron:"",lit:"老人",zh:"",en:"Uncle",cat:"social"},
-  {id:161,term:"Understood the Assignment",pron:"",lit:"做得很好",zh:"",en:"",cat:"genz"},
-  {id:162,term:"V",pron:"",lit:"很，非常",zh:"",en:"Very",cat:"abbrev"},
-  {id:163,term:"Vibes",pron:"",lit:"感觉，气氛",zh:"",en:"",cat:"genz"},
-  {id:164,term:"Vibing",pron:"",lit:"放松，一起玩",zh:"",en:"",cat:"genz"},
-  {id:165,term:"W",pron:"",lit:"赢了，胜利，胜者",zh:'跟"L"是反义词',en:"",cat:"genz"},
-  {id:166,term:"Wassup",pron:"",lit:"今儿咋样儿",zh:'"How are you" 的随意版。',en:"What's Up",cat:"social"},
-  {id:167,term:"Wig Snatched",pron:"",lit:"我的假发被抓走了",zh:"代表十分震惊。",en:"",cat:"genz"},
-  {id:168,term:"Wild",pron:"",lit:"好野",zh:"",en:"Crazy",cat:"genz"},
-  {id:169,term:"WTH",pron:"W-T-H",lit:"他妈的见鬼",zh:"",en:"What The Hell/Heck",cat:"abbrev"},
-  {id:170,term:"WTF",pron:"W-T-F",lit:"他妈的啥",zh:"",en:"What The Fuck",cat:"abbrev"},
-  {id:171,term:"Yap",pron:"",lit:"嘚啵嘚啵",zh:"说太多话，尤其没有意义的话。",en:"",cat:"genz"},
-  {id:172,term:"Yassss",pron:"",lit:"对的，好的",zh:"",en:"Yes",cat:"genz"},
-  {id:173,term:"YMMV",pron:"",lit:"你开车和我开车消耗的油量可能会不同",zh:"我理解我们的经历或观点可能会不一样。",en:"Your Mileage May Vary",cat:"abbrev"},
-  {id:174,term:"💀",pron:"",lit:"笑太多死了或太无语了",zh:"",en:"",cat:"emoji"},
-  {id:175,term:"😭",pron:"",lit:"笑或哭",zh:"看情况。",en:"",cat:"emoji"}
-];
+  var TERMS = [
+    {id:1,term:"67",pron:"six-seven",lit:"无",zh:"我也不知道，好像是什么歌的歌词。小孩子用的比较频繁。",en:"",cat:"internet"},
+    {id:2,term:"AF",pron:"A-F",lit:"非常",zh:'"It\'s hot AF" 真的好热',en:"As Fuck",cat:"abbrev"},
+    {id:3,term:"AFAIK",pron:"",lit:"据我所知",zh:"",en:"As Far As I Know",cat:"abbrev"},
+    {id:4,term:"AFAIR",pron:"",lit:"根据我所记得的",zh:"",en:"As Far As I Remember",cat:"abbrev"},
+    {id:5,term:"AFAIC",pron:"",lit:"依我看",zh:"",en:"As Far As I'm Concerned",cat:"abbrev"},
+    {id:6,term:"AFK",pron:"",lit:"没在键盘跟前",zh:"表示某人在忙其他的、大概率是不能打字的事。现在很少用。",en:"Away From Keyboard",cat:"abbrev"},
+    {id:7,term:"And I Oop",pron:"",lit:"哦是吗 / 真的吗",zh:"感叹句，用来锐评有点丢人的事情。",en:"",cat:"genz"},
+    {id:8,term:"ASAP",pron:"A-S-A-P / ay-sap",lit:"尽快，越快越好",zh:"",en:"As Soon As Possible",cat:"abbrev"},
+    {id:9,term:"Ate",pron:"",lit:"燃爆了，表现得太好了",zh:'"She ate" 她表现得太好了',en:"",cat:"genz"},
+    {id:10,term:"Aura",pron:"",lit:"感觉，氛围",zh:'跟"vibe"类似。',en:"",cat:"genz"},
+    {id:11,term:"Baddie",pron:"",lit:"非常时尚、漂亮、有魅力的女人",zh:'"She\'s a baddie" 她太时髦了',en:"",cat:"social"},
+    {id:12,term:"BAE",pron:"bay",lit:"宝贝儿",zh:"亲密朋友之间的称呼。非常随意。",en:"Before Anyone Else / Baby",cat:"social"},
+    {id:13,term:"Based",pron:"",lit:"很好",zh:"说实话我也不太懂，应该是做的很好的意思。",en:"",cat:"internet"},
+    {id:14,term:"Basic",pron:"",lit:"无聊，基础",zh:'"She\'s basic" 她真的好无趣',en:"",cat:"social"},
+    {id:15,term:"BB",pron:"B-B",lit:"宝贝儿",zh:"用于朋友之间。",en:"Baby",cat:"social"},
+    {id:16,term:"BDE",pron:"B-D-E",lit:"贼有气场",zh:"用来形容很有信心的人。",en:"Big Dick Energy",cat:"internet"},
+    {id:17,term:"Bedrotting",pron:"",lit:"瘫在床上",zh:"待在床上什么也不干。可能是心理上不健康的表现。",en:"",cat:"genz"},
+    {id:18,term:"Bestie",pron:"",lit:"闺蜜",zh:"可用于表达讽刺，看情况。",en:"Best Friend",cat:"social"},
+    {id:19,term:"Bet",pron:"",lit:"成，中",zh:"好、可以的意思",en:"",cat:"genz"},
+    {id:20,term:"BFF(L)",pron:"B-F-F-(L) / biffle",lit:"(永远)最好的闺蜜",zh:"近些年用的比较少。",en:"Best Friend Forever (For Life)",cat:"social"},
+    {id:21,term:"BFFR",pron:"",lit:"你他妈认真的吗",zh:"",en:"Be Fucking For Real",cat:"abbrev"},
+    {id:22,term:"Boi",pron:"",lit:"男孩",zh:"",en:"Boy",cat:"genz"},
+    {id:23,term:"Bop",pron:"",lit:"好听的歌",zh:"",en:"",cat:"genz"},
+    {id:24,term:"Bougie",pron:"",lit:"小资",zh:"",en:"",cat:"social"},
+    {id:25,term:"Boutta",pron:"",lit:"准备做某件事",zh:"",en:"About to",cat:"genz"},
+    {id:26,term:"Brainrot",pron:"",lit:"让脑子烂掉的东西",zh:"脑残但很上瘾的网络上的东西，比如说tiktok",en:"",cat:"internet"},
+    {id:27,term:"BRB",pron:"B-R-B",lit:"我马上回来",zh:"",en:"Be Right Back",cat:"abbrev"},
+    {id:28,term:"Bro",pron:"",lit:"兄弟",zh:"",en:"",cat:"social"},
+    {id:29,term:"Bruh",pron:"",lit:"兄弟（带无语语气）",zh:"",en:"",cat:"genz"},
+    {id:30,term:"Bussin'",pron:"",lit:"非常好",zh:"",en:"",cat:"genz"},
+    {id:31,term:"Cancelled",pron:"",lit:"被取消资格",zh:'用于有争议的人，可以是幽默的用意。"She\'s cancelled" 她完蛋了。',en:"",cat:"internet"},
+    {id:32,term:"Cap",pron:"",lit:"说谎，谎言",zh:'"No cap" 真的，确实',en:"",cat:"genz"},
+    {id:33,term:"Catch Hands",pron:"",lit:"打架",zh:"",en:"",cat:"genz"},
+    {id:34,term:"Chat",pron:"",lit:"聊天室",zh:'用于跟很多人对话时，也可指ChatGPT。相当于"You guys"、"Everyone"',en:"",cat:"internet"},
+    {id:35,term:"Chill",pron:"",lit:"放松，别担心",zh:"",en:"",cat:"genz"},
+    {id:36,term:"Chopped",pron:"",lit:"丑",zh:"",en:"",cat:"social"},
+    {id:37,term:"Clocked",pron:"",lit:"我就知道",zh:'"I clocked that he was lying" 我就知道他在撒谎',en:"",cat:"genz"},
+    {id:38,term:"Cook / Cooking",pron:"",lit:"做得好",zh:'"She\'s cooking" 她做的好',en:"",cat:"genz"},
+    {id:39,term:"Cooked",pron:"",lit:"完了，完蛋了",zh:'"She\'s cooked" 她完蛋了',en:"",cat:"genz"},
+    {id:40,term:"Crash out",pron:"",lit:"发飙",zh:"",en:"",cat:"genz"},
+    {id:41,term:"Cringe",pron:"",lit:"丢人",zh:"",en:"",cat:"internet"},
+    {id:42,term:"Crying",pron:"",lit:"我哭了我又哭了",zh:"大多表示喜极而泣。",en:"",cat:"genz"},
+    {id:43,term:"Dead",pron:"",lit:"我死了我又死了",zh:"大多表示太好笑了。",en:"",cat:"genz"},
+    {id:44,term:"Deadass",pron:"",lit:"真的，没开玩笑",zh:"",en:"",cat:"genz"},
+    {id:45,term:"Delulu",pron:"",lit:"妄想的，幻想的",zh:"",en:"Delusional",cat:"internet"},
+    {id:46,term:"DM",pron:"D-M",lit:"私信",zh:"",en:"Direct Message",cat:"abbrev"},
+    {id:47,term:"Drip",pron:"",lit:"时髦的衣服",zh:"",en:"",cat:"genz"},
+    {id:48,term:"Extra",pron:"",lit:"太过头了",zh:"",en:"",cat:"social"},
+    {id:49,term:"Facts",pron:"",lit:"真实的，我同意",zh:"",en:"",cat:"genz"},
+    {id:50,term:"Fam",pron:"",lit:"家人们",zh:"",en:"Family",cat:"social"},
+    {id:51,term:"Fine shyt/shit",pron:"",lit:"很漂亮的人",zh:"非常随意。",en:"",cat:"social"},
+    {id:52,term:"Finna",pron:"",lit:"准备做某件事",zh:"",en:"Gonna / going to",cat:"genz"},
+    {id:53,term:"Fire",pron:"",lit:"燃，非常好",zh:"",en:"",cat:"genz"},
+    {id:54,term:"Fit",pron:"",lit:"服装，衣服，或身材很好",zh:'"Her fit is fire" 她的衣服很好看',en:"",cat:"genz"},
+    {id:55,term:"Flex",pron:"",lit:"炫耀，吹牛",zh:"",en:"",cat:"social"},
+    {id:56,term:"Flop",pron:"",lit:"失败",zh:"",en:"",cat:"internet"},
+    {id:57,term:"FOMO",pron:"foh-moh",lit:"害怕错过",zh:"近些年比较少用。",en:"Fear Of Missing Out",cat:"abbrev"},
+    {id:58,term:"FR",pron:"",lit:"真的",zh:"",en:"For Real",cat:"abbrev"},
+    {id:59,term:"Fruity",pron:"",lit:"gaygay的",zh:"大多指对于他人的一种感觉。",en:"",cat:"social"},
+    {id:60,term:"FTW",pron:"",lit:"……必胜",zh:'"Our department FTW" 我们系必胜/最好',en:"For The Win",cat:"abbrev"},
+    {id:61,term:"FWIW",pron:"",lit:"依我所见",zh:"在表达自己的观点时显得谦虚或不确定。",en:"For What It's Worth",cat:"abbrev"},
+    {id:62,term:"Function",pron:"",lit:"聚会",zh:'跟"party"差不多',en:"",cat:"social"},
+    {id:63,term:"FYI",pron:"F-Y-I",lit:"你应当知道……",zh:"可用于专业场合或表达讽刺，看情况。",en:"For Your Information",cat:"abbrev"},
+    {id:64,term:"Gagged",pron:"",lit:"无语",zh:"",en:"",cat:"genz"},
+    {id:65,term:"GD",pron:"",lit:"哦上帝啊",zh:"",en:"God Damn",cat:"abbrev"},
+    {id:66,term:"Ghost",pron:"",lit:"突然断绝联系",zh:"",en:"",cat:"social"},
+    {id:67,term:"GL",pron:"",lit:"祝你好运",zh:"",en:"Good Luck",cat:"abbrev"},
+    {id:68,term:"Glaze",pron:"",lit:"过于吹嘘",zh:'"Stop glazing that thing" 别再吹那东西有多好了',en:"",cat:"genz"},
+    {id:69,term:"Glizzy",pron:"",lit:"火腿肠",zh:"",en:"Hot dog",cat:"genz"},
+    {id:70,term:"Glow Up",pron:"",lit:"变漂亮了",zh:"",en:"",cat:"social"},
+    {id:71,term:"Go Off",pron:"",lit:"你骂的好爽，尽情去骂",zh:"",en:"",cat:"genz"},
+    {id:72,term:"GOAT",pron:"",lit:"全世界永远的第一名",zh:"现在大多用于表示某人很厉害。",en:"Greatest Of All Time",cat:"abbrev"},
+    {id:73,term:"Gng",pron:"",lit:"我的朋友们",zh:"",en:"Gang",cat:"social"},
+    {id:74,term:"GTG / g2g",pron:"G-T-G",lit:"我该走了",zh:"一般用于道别，也可以用在句子里以代表需要去某个地方。",en:"Got To Go",cat:"abbrev"},
+    {id:75,term:"Gucci",pron:"",lit:"好",zh:"",en:"Good",cat:"genz"},
+    {id:76,term:"Gurl",pron:"",lit:"女孩儿",zh:"",en:"Girl",cat:"social"},
+    {id:77,term:"Highkey",pron:"",lit:"很明显的",zh:'"I\'m highkey want that" 我确实很想要那个。"Lowkey"的反义词。',en:"",cat:"genz"},
+    {id:78,term:"Hits Different",pron:"",lit:"给我不同的感受",zh:"",en:"",cat:"genz"},
+    {id:79,term:"Hop Off",pron:"",lit:"别烦我",zh:"",en:"",cat:"genz"},
+    {id:80,term:"HMU",pron:"",lit:"联系我",zh:"大多用于非常随意的场合。",en:"Hit Me Up",cat:"abbrev"},
+    {id:81,term:"Ick",pron:"",lit:"恶心",zh:"",en:"",cat:"genz"},
+    {id:82,term:"ICYMI",pron:"",lit:"如果你错过了……",zh:"",en:"In Case You Missed It",cat:"abbrev"},
+    {id:83,term:"ID(F)C",pron:"",lit:"我（他妈的）不在乎",zh:"",en:"I Don't (Fucking) Care",cat:"abbrev"},
+    {id:84,term:"ID(F)K",pron:"I-D-K",lit:"我（他妈的）不知道",zh:"",en:"I Don't (Fucking) Know",cat:"abbrev"},
+    {id:85,term:"IIRC",pron:"",lit:"我没记错的话",zh:"",en:"If I Recall Correctly",cat:"abbrev"},
+    {id:86,term:"IJBOL",pron:"ih-zh-ball",lit:"我刚刚笑出声了",zh:"",en:"I Just Burst Out Laughing",cat:"abbrev"},
+    {id:87,term:"ILY",pron:"ih-lee",lit:"爱你哟",zh:"偏俏皮或不太郑重的用意。大多用于朋友或同僚之间。",en:"I Love You",cat:"abbrev"},
+    {id:88,term:"IM(H)O",pron:"I-M-O",lit:"我（真实）的想法是……",zh:"用于表达个人的想法，尤其当其想法可能与他人不一样时。",en:"In My (Honest) Opinion",cat:"abbrev"},
+    {id:89,term:"iPad Kid",pron:"",lit:"看ipad长大的小孩",zh:"离不开手机的小孩。也可用于讽刺大人。",en:"",cat:"internet"},
+    {id:90,term:"IRL",pron:"I-R-L",lit:"在现实生活中",zh:"用于网络上可指现实生活中认识的人。",en:"In Real Life",cat:"abbrev"},
+    {id:91,term:"It's Giving",pron:"",lit:"它给我的感觉是……",zh:"",en:"",cat:"genz"},
+    {id:92,term:"IYKYK",pron:"",lit:"懂得都懂",zh:"",en:"If You Know, You Know",cat:"abbrev"},
+    {id:93,term:"JFC",pron:"",lit:"我他妈的",zh:"感叹句。用于十分无语的时候。",en:"Jesus Fucking Christ",cat:"abbrev"},
+    {id:94,term:"JK",pron:"J-K",lit:"开玩笑的",zh:"",en:"Just Kidding",cat:"abbrev"},
+    {id:95,term:"JSYK",pron:"",lit:"我告诉你哈",zh:"可以是善意或恶意，看情况。",en:"Just So You Know",cat:"abbrev"},
+    {id:96,term:"Karen",pron:"",lit:"不讲理的大妈",zh:"近些年有些侮辱性。",en:"",cat:"social"},
+    {id:97,term:"KMS",pron:"K-M-S",lit:"我要自杀",zh:"大多用于抱怨。",en:"Kill MySelf",cat:"abbrev"},
+    {id:98,term:"KYS",pron:"K-Y-S",lit:"你自杀去",zh:"属于辱骂。",en:"Kill YourSelf",cat:"abbrev"},
+    {id:99,term:"L",pron:"",lit:"输了，失败，败者",zh:'"Take the L" 接受失败吧',en:"",cat:"genz"},
+    {id:100,term:"Let's Get This Bread",pron:"",lit:"咱来赚这个钱吧",zh:"我们一起努力工作。",en:"",cat:"genz"},
+    {id:101,term:"Lit",pron:"",lit:"好玩，燃爆了，太好了",zh:"",en:"",cat:"genz"},
+    {id:102,term:"LM(F)AO",pron:"L-M-A-O / le-maw",lit:"（他妈的）笑掉大牙",zh:"大写用于真正好笑的时候。小写可以表达讽刺。",en:"Laughing My (Fucking) Ass Off",cat:"abbrev"},
+    {id:103,term:"Locked In",pron:"",lit:"极度专注",zh:'"You\'re locked in" 你太专注了吧',en:"",cat:"genz"},
+    {id:104,term:"LOL",pron:"lawl",lit:"开怀大笑",zh:"大写用于真正好笑的时候。小写可以表达讽刺或做缓冲词。可以当句号使用。",en:"Laughing Out Loud",cat:"abbrev"},
+    {id:105,term:"Lowkey",pron:"",lit:"不是很明显的",zh:'"I lowkey want that" 我其实有点想要那个。',en:"",cat:"genz"},
+    {id:106,term:"MAGA",pron:"ma-ga",lit:"特朗普的小跟班儿",zh:"用来讽刺那些认为特朗普说什么都对的人。比较有辱骂性。",en:"Make America Great Again",cat:"internet"},
+    {id:107,term:"Menty B",pron:"",lit:"精神崩溃",zh:"",en:"Mental breakdown",cat:"genz"},
+    {id:108,term:"Mid",pron:"",lit:"平庸，普通，还行吧",zh:"",en:"",cat:"genz"},
+    {id:109,term:"Mood",pron:"",lit:"心情",zh:"意思为我能理解，感同身受。",en:"",cat:"genz"},
+    {id:110,term:"NBD",pron:"",lit:"又不是啥大事",zh:"",en:"No Big Deal",cat:"abbrev"},
+    {id:111,term:"NGL",pron:"N-G-L",lit:"说实在的",zh:'可用于比较无语时。或者你平时怎么用"说实在的"就怎么用。',en:"Not Gonna Lie",cat:"abbrev"},
+    {id:112,term:"NSFW",pron:"N-S-F-W",lit:"上班时间不许看",zh:"大多用来表示有黄色内容。",en:"Not Safe For Work",cat:"abbrev"},
+    {id:113,term:"OK Boomer",pron:"",lit:"好吧，大妈 / 大爷",zh:"轻视中/老年人的意见或想法。近些年有些辱骂性。",en:"",cat:"internet"},
+    {id:114,term:"OM(F)G",pron:"O-M-G / ohm-guh",lit:"我（他妈的）的天哪",zh:"",en:"Oh My (Fucking) God",cat:"abbrev"},
+    {id:115,term:"OMW",pron:"",lit:"我在路上了，我出发了",zh:"",en:"On My Way",cat:"abbrev"},
+    {id:116,term:"Oof",pron:"",lit:"哎呀，不好",zh:"",en:"",cat:"genz"},
+    {id:117,term:"Out of pocket",pron:"",lit:"极端",zh:"",en:"",cat:"genz"},
+    {id:118,term:"Period(t)",pron:"",lit:"话题终止",zh:'有种"我说的就是对的"的意思',en:"",cat:"genz"},
+    {id:119,term:"Pick-Me",pron:"",lit:"装逼的人，做作的人",zh:"",en:"",cat:"social"},
+    {id:120,term:"PMO",pron:"P-M-O",lit:"让我生气",zh:"",en:"Piss Me Off",cat:"abbrev"},
+    {id:121,term:"Pog / Poggers",pron:"",lit:"酷",zh:"基本没人用了。",en:"",cat:"internet"},
+    {id:122,term:"Pookie",pron:"",lit:"宝贝儿",zh:"也可用于讽刺。",en:"",cat:"social"},
+    {id:123,term:"Ppl",pron:"",lit:"人，人们",zh:"",en:"People",cat:"abbrev"},
+    {id:124,term:"Pressed",pron:"",lit:"生气",zh:'"Why is she so pressed" 她为什么那么生气',en:"",cat:"social"},
+    {id:125,term:"Receipts",pron:"",lit:"证据",zh:"",en:"",cat:"genz"},
+    {id:126,term:"Rent Free",pron:"",lit:"无房租",zh:"意为什么东西在脑里挥之不去。",en:"",cat:"genz"},
+    {id:127,term:"RIP",pron:"R-I-P",lit:"请安息吧",zh:'有时可用直译，大多随意用意为"得，好吧"类似。',en:"Rest In Peace",cat:"abbrev"},
+    {id:128,term:"Rizz",pron:"",lit:"魅力",zh:"",en:"",cat:"genz"},
+    {id:129,term:"RN",pron:"",lit:"现在",zh:"",en:"Right Now",cat:"abbrev"},
+    {id:130,term:"Salty",pron:"",lit:"怨恨的，恼羞成怒",zh:"形容人的词。",en:"",cat:"social"},
+    {id:131,term:"Say Less",pron:"",lit:"不用多说",zh:"我都明白，我明白了。",en:"",cat:"genz"},
+    {id:132,term:"Sending Me",pron:"",lit:"让我觉得很好笑",zh:"",en:"",cat:"genz"},
+    {id:133,term:"Serving",pron:"",lit:"表现得很自信，穿的衣服很好看",zh:"",en:"",cat:"genz"},
+    {id:134,term:"SFW",pron:"",lit:"上班时间可以看",zh:"大多表示没有黄色内容。",en:"Safe For Work",cat:"abbrev"},
+    {id:135,term:"Shook",pron:"",lit:"震惊",zh:"",en:"Shocked",cat:"genz"},
+    {id:136,term:"Simp",pron:"",lit:"舔狗",zh:"",en:"",cat:"social"},
+    {id:137,term:"Sis",pron:"",lit:"姐妹",zh:"",en:"",cat:"social"},
+    {id:138,term:"Skill issue",pron:"",lit:"你太菜了",zh:"",en:"",cat:"internet"},
+    {id:139,term:"Sksksk",pron:"",lit:"笑",zh:'相当于"LOL"。近些年很少用。',en:"",cat:"internet"},
+    {id:140,term:"Slaps",pron:"",lit:"很好",zh:"",en:"",cat:"genz"},
+    {id:141,term:"Slay",pron:"",lit:"很好",zh:"",en:"",cat:"genz"},
+    {id:142,term:"Sleep On",pron:"",lit:"忽略了某件事/人的才华",zh:"",en:"",cat:"genz"},
+    {id:143,term:"Slop",pron:"",lit:"猪食",zh:"网络上导致脑残的东西，比如AI生成的照片或影片",en:"",cat:"internet"},
+    {id:144,term:"SM(F)H",pron:"S-M-H",lit:"我在（他妈的）摇头",zh:"用于无语时，尤其对于某件事或某人做的某件事。",en:"Shaking My (Fucking) Head",cat:"abbrev"},
+    {id:145,term:"Snatched",pron:"",lit:"很漂亮",zh:"尤其腰很窄",en:"",cat:"genz"},
+    {id:146,term:"Srs(ly)",pron:"",lit:"真的",zh:"",en:"Serious(ly)",cat:"abbrev"},
+    {id:147,term:"Stan",pron:"",lit:"支持",zh:"",en:"",cat:"social"},
+    {id:148,term:"Sus",pron:"",lit:"可疑",zh:"",en:"Suspicious",cat:"internet"},
+    {id:149,term:"SYBAU",pron:"",lit:"你他妈的可闭嘴吧",zh:"",en:"Shut Your Bitch Ass Up",cat:"abbrev"},
+    {id:150,term:"Tea",pron:"",lit:"闲话",zh:'"Spill the tea" 咱一起嚼舌根子吧',en:"",cat:"social"},
+    {id:151,term:"TBH",pron:"T-B-H",lit:"说实在的",zh:'相对于"NGL"少了些无语，日常生活中随处可用。',en:"To Be Honest",cat:"abbrev"},
+    {id:152,term:"TFW / MFW",pron:"",lit:"此刻我的心情是……",zh:"用于无语的时候。",en:"That Feeling When / My Feelings When",cat:"abbrev"},
+    {id:153,term:"TIL",pron:"T-I-L",lit:"今天我学到了……",zh:"",en:"Today I Learned",cat:"abbrev"},
+    {id:154,term:"TLDR",pron:"T-L-D-R",lit:"太长了，我没读",zh:"大多用于自己写小作文时在最后加上概括。也可用于概括发生过的很曲折的事。",en:"Too Long, Didn't Read",cat:"abbrev"},
+    {id:155,term:"Touch Grass",pron:"",lit:"去外面站会",zh:"潜在意思是别看手机了，去跟真正的人类说说话。",en:"",cat:"internet"},
+    {id:156,term:"TTYL",pron:"T-T-Y-L",lit:"咱待会聊天",zh:"",en:"Talk To You Later",cat:"abbrev"},
+    {id:157,term:"TS",pron:"",lit:"这个东西，这事 / Taylor Swift",zh:"",en:"This Shit",cat:"abbrev"},
+    {id:158,term:"Tweaking",pron:"",lit:"表现得很奇怪",zh:"",en:"",cat:"genz"},
+    {id:159,term:"Twin",pron:"",lit:"很好的朋友",zh:"或跟你很相似的朋友",en:"",cat:"social"},
+    {id:160,term:"Unc",pron:"",lit:"老人",zh:"",en:"Uncle",cat:"social"},
+    {id:161,term:"Understood the Assignment",pron:"",lit:"做得很好",zh:"",en:"",cat:"genz"},
+    {id:162,term:"V",pron:"",lit:"很，非常",zh:"",en:"Very",cat:"abbrev"},
+    {id:163,term:"Vibes",pron:"",lit:"感觉，气氛",zh:"",en:"",cat:"genz"},
+    {id:164,term:"Vibing",pron:"",lit:"放松，一起玩",zh:"",en:"",cat:"genz"},
+    {id:165,term:"W",pron:"",lit:"赢了，胜利，胜者",zh:'跟"L"是反义词',en:"",cat:"genz"},
+    {id:166,term:"Wassup",pron:"",lit:"今儿咋样儿",zh:'"How are you" 的随意版。',en:"What's Up",cat:"social"},
+    {id:167,term:"Wig Snatched",pron:"",lit:"我的假发被抓走了",zh:"代表十分震惊。",en:"",cat:"genz"},
+    {id:168,term:"Wild",pron:"",lit:"好野",zh:"",en:"Crazy",cat:"genz"},
+    {id:169,term:"WTH",pron:"W-T-H",lit:"他妈的见鬼",zh:"",en:"What The Hell/Heck",cat:"abbrev"},
+    {id:170,term:"WTF",pron:"W-T-F",lit:"他妈的啥",zh:"",en:"What The Fuck",cat:"abbrev"},
+    {id:171,term:"Yap",pron:"",lit:"嘚啵嘚啵",zh:"说太多话，尤其没有意义的话。",en:"",cat:"genz"},
+    {id:172,term:"Yassss",pron:"",lit:"对的，好的",zh:"",en:"Yes",cat:"genz"},
+    {id:173,term:"YMMV",pron:"",lit:"你开车和我开车消耗的油量可能会不同",zh:"我理解我们的经历或观点可能会不一样。",en:"Your Mileage May Vary",cat:"abbrev"},
+    {id:174,term:"💀",pron:"",lit:"笑太多死了或太无语了",zh:"",en:"",cat:"emoji"},
+    {id:175,term:"😭",pron:"",lit:"笑或哭",zh:"看情况。",en:"",cat:"emoji"}
+  ];
 
-var terms = TERMS.map(function(t){ return Object.assign({},t); });
-var added = JSON.parse(localStorage.getItem("slang_added_terms") || "[]");
-var activeFilter = "all";
-var expandedId = null;
-var editingId = null;
+  var terms = TERMS.map(function(t){ return Object.assign({},t); });
+  var added = JSON.parse(localStorage.getItem("slang_added_terms") || "[]");
+  var activeFilter = "all";
+  var expandedId = null;
+  var editingId = null;
 
-var catLabel = {abbrev:"缩写",genz:"Gen Z",internet:"网络",social:"社交",emoji:"表情",misc:"其他"};
-var catCls   = {abbrev:"t-abbrev",genz:"t-genz",internet:"t-internet",social:"t-social",emoji:"t-emoji",misc:"t-misc"};
+  var catLabel = {abbrev:"缩写",genz:"Gen Z",internet:"网络",social:"社交",emoji:"表情",misc:"其他"};
+  var catCls   = {abbrev:"t-abbrev",genz:"t-genz",internet:"t-internet",social:"t-social",emoji:"t-emoji",misc:"t-misc"};
 
-function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
-function allTerms(){ return added.concat(terms); }
+  function allTerms(){ return added.concat(terms); }
 
-function filtered(){
-  var q = document.getElementById("searchInput").value.toLowerCase();
-  return allTerms().filter(function(t){
-    var okCat = activeFilter==="all" || t.cat===activeFilter;
-    var okQ = !q || t.term.toLowerCase().indexOf(q)>-1 ||
-      (t.zh&&t.zh.indexOf(q)>-1) ||
-      (t.lit&&t.lit.indexOf(q)>-1) ||
-      (t.en&&t.en.toLowerCase().indexOf(q)>-1) ||
-      (t.pron&&t.pron.toLowerCase().indexOf(q)>-1);
-    return okCat && okQ;
-  });
-}
-
-function render(){
-  var list = document.getElementById("list");
-  var f = filtered();
-  document.getElementById("countEl").textContent = f.length + " 个词条";
-  if(!f.length){
-    list.innerHTML = '<div class="empty"><i class="ti ti-search" style="font-size:2rem;color:var(--color-text-tertiary)" aria-hidden="true"></i><br><br>没有找到相关词条<br><span style="font-size:13px">No terms found</span></div>';
-    return;
+  function filtered(){
+    var q = document.getElementById("searchInput").value.toLowerCase();
+    return allTerms().filter(function(t){
+      var okCat = activeFilter==="all" || t.cat===activeFilter;
+      var okQ = !q || t.term.toLowerCase().indexOf(q)>-1 ||
+        (t.zh&&t.zh.indexOf(q)>-1) ||
+        (t.lit&&t.lit.indexOf(q)>-1) ||
+        (t.en&&t.en.toLowerCase().indexOf(q)>-1) ||
+        (t.pron&&t.pron.toLowerCase().indexOf(q)>-1);
+      return okCat && okQ;
+    });
   }
-  list.innerHTML = f.map(function(t){
-    var exp = expandedId===t.id;
-    var preview = (t.lit||t.zh||"");
-    if(preview.length>32) preview=preview.slice(0,32)+"…";
-    return '<div class="card'+(exp?" open":"")+'" onclick="toggle('+t.id+')">'+
-      '<div class="card-top">'+
-        '<span class="tag '+(catCls[t.cat]||"t-misc")+'">'+(catLabel[t.cat]||t.cat)+'</span>'+
-        '<div style="flex:1;min-width:0">'+
-          '<div class="card-term">'+esc(t.term)+'</div>'+
-          (t.pron?'<div class="card-pron">'+esc(t.pron)+'</div>':'')+
-          (!exp?'<div class="card-preview">'+esc(preview)+'</div>':'')+
+
+  function render(){
+    var list = document.getElementById("list");
+    var f = filtered();
+    document.getElementById("countEl").textContent = f.length + " 个词条";
+    if(!f.length){
+      list.innerHTML = '<div class="empty"><i class="ti ti-search" style="font-size:2rem;color:#888888" aria-hidden="true"></i><br><br>没有找到相关词条<br><span style="font-size:13px">No terms found</span></div>';
+      return;
+    }
+    list.innerHTML = f.map(function(t){
+      var exp = expandedId===t.id;
+      var preview = (t.lit||t.zh||"");
+      if(preview.length>32) preview=preview.slice(0,32)+"…";
+      return '<div class="card'+(exp?" open":"")+'" onclick="toggle('+t.id+')">'+
+        '<div class="card-top">'+
+          '<span class="tag '+(catCls[t.cat]||"t-misc")+'">'+(catLabel[t.cat]||t.cat)+'</span>'+
+          '<div style="flex:1;min-width:0">'+
+            '<div class="card-term">'+esc(t.term)+'</div>'+
+            (t.pron?'<div class="card-pron">'+esc(t.pron)+'</div>':'')+
+            (!exp?'<div class="card-preview">'+esc(preview)+'</div>':'')+
+          '</div>'+
+          '<i class="ti '+(exp?"ti-chevron-up":"ti-chevron-down")+' chevron" aria-hidden="true"></i>'+
         '</div>'+
-        '<i class="ti '+(exp?"ti-chevron-up":"ti-chevron-down")+' chevron" aria-hidden="true"></i>'+
-      '</div>'+
-      (exp?
-        '<div class="body">'+
-          (added.some(function(a){return a.id===t.id;}) ?
-          '<div style="margin-bottom:10px"><button onclick="event.stopPropagation();editTerm('+t.id+')">✏️ Edit</button> <button onclick="event.stopPropagation();deleteTerm('+t.id+')">🗑 Delete</button></div>' : '')+
-          (t.lit?'<div class="dlabel">直译 Literal</div><div class="dval">'+esc(t.lit)+'</div>':'')+
-          (t.zh?'<div class="dlabel">实意 / 用意</div><div class="dval">'+esc(t.zh)+'</div>':'')+
-          (t.en?'<div class="dlabel">英文全称</div><div class="dval">'+esc(t.en)+'</div>':'')+
-        '</div>'
-      :'')+
-    '</div>';
-  }).join("");
-}
+        (exp?
+          '<div class="body">'+
+            (added.some(function(a){return a.id===t.id;}) ?
+            '<div style="margin-bottom:10px"><button onclick="event.stopPropagation();editTerm('+t.id+')">✏️ Edit</button> <button onclick="event.stopPropagation();deleteTerm('+t.id+')">🗑 Delete</button></div>' : '')+
+            (t.lit?'<div class="dlabel">直译 Literal</div><div class="dval">'+esc(t.lit)+'</div>':'')+
+            (t.zh?'<div class="dlabel">实意 / 用意</div><div class="dval">'+esc(t.zh)+'</div>':'')+
+            (t.en?'<div class="dlabel">英文全称</div><div class="dval">'+esc(t.en)+'</div>':'')+
+          '</div>'
+        :'')+
+      '</div>';
+    }).join("");
+  }
 
-function toggle(id){
-  expandedId = expandedId===id ? null : id;
-  
-function deleteTerm(id){
-  if(!confirm('Delete this term?')) return;
-  added = added.filter(function(t){ return t.id !== id; });
-  localStorage.setItem('slang_added_terms', JSON.stringify(added));
-  expandedId = null;
+  function toggle(id){
+    expandedId = expandedId===id ? null : id;
+    render();
+  }
+
+  document.querySelectorAll(".fb").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      activeFilter = btn.dataset.cat;
+      document.querySelectorAll(".fb").forEach(function(b){ b.classList.remove("on"); });
+      btn.classList.add("on");
+      expandedId = null;
+
   render();
-}
 
-function editTerm(id){
-  var t = added.find(function(x){ return x.id===id; });
-  if(!t) return;
-
-  editingId = id;
-  document.getElementById('f_term').value = t.term || '';
-  document.getElementById('f_pron').value = t.pron || '';
-  document.getElementById('f_lit').value = t.lit || '';
-  document.getElementById('f_zh').value = t.zh || '';
-  document.getElementById('f_en').value = t.en || '';
-  document.getElementById('f_cat').value = t.cat || 'misc';
-
-  document.getElementById('overlay').classList.add('show');
-}
-
-render();
-
-}
-
-document.querySelectorAll(".fb").forEach(function(btn){
-  btn.addEventListener("click", function(){
-    activeFilter = btn.dataset.cat;
-    document.querySelectorAll(".fb").forEach(function(b){ b.classList.remove("on"); });
-    btn.classList.add("on");
-    expandedId = null;
-    
-function deleteTerm(id){
-  if(!confirm('Delete this term?')) return;
-  added = added.filter(function(t){ return t.id !== id; });
-  localStorage.setItem('slang_added_terms', JSON.stringify(added));
-  expandedId = null;
-  render();
-}
-
-function editTerm(id){
-  var t = added.find(function(x){ return x.id===id; });
-  if(!t) return;
-
-  editingId = id;
-  document.getElementById('f_term').value = t.term || '';
-  document.getElementById('f_pron').value = t.pron || '';
-  document.getElementById('f_lit').value = t.lit || '';
-  document.getElementById('f_zh').value = t.zh || '';
-  document.getElementById('f_en').value = t.en || '';
-  document.getElementById('f_cat').value = t.cat || 'misc';
-
-  document.getElementById('overlay').classList.add('show');
-}
-
-render();
-
+    });
   });
-});
 
-document.getElementById("searchInput").addEventListener("input", function(){ 
-function deleteTerm(id){
-  if(!confirm('Delete this term?')) return;
-  added = added.filter(function(t){ return t.id !== id; });
-  localStorage.setItem('slang_added_terms', JSON.stringify(added));
-  expandedId = null;
+  document.getElementById("searchInput").addEventListener("input", function(){ 
+
   render();
-}
+  });
 
-function editTerm(id){
-  var t = added.find(function(x){ return x.id===id; });
-  if(!t) return;
+  document.getElementById("addBtn").addEventListener("click", function(){
+    document.getElementById("overlay").classList.add("show");
+    setTimeout(function(){ document.getElementById("f_term").focus(); }, 100);
+  });
 
-  editingId = id;
-  document.getElementById('f_term').value = t.term || '';
-  document.getElementById('f_pron').value = t.pron || '';
-  document.getElementById('f_lit').value = t.lit || '';
-  document.getElementById('f_zh').value = t.zh || '';
-  document.getElementById('f_en').value = t.en || '';
-  document.getElementById('f_cat').value = t.cat || 'misc';
+  document.getElementById("cancelBtn").addEventListener("click", closeModal);
+  document.getElementById("overlay").addEventListener("click", function(e){
+    if(e.target===this) closeModal();
+  });
 
-  document.getElementById('overlay').classList.add('show');
-}
+  document.getElementById("saveBtn").addEventListener("click", function(){
+    var term = document.getElementById("f_term").value.trim();
+    if(!term){ toast("请填写英文词汇 ✕"); return; }
+    var entry = {
+      id: Date.now(),
+      term: term,
+      pron: document.getElementById("f_pron").value.trim(),
+      lit:  document.getElementById("f_lit").value.trim(),
+      zh:   document.getElementById("f_zh").value.trim(),
+      en:   document.getElementById("f_en").value.trim(),
+      cat:  document.getElementById("f_cat").value
+    };
+    
+  if(editingId){
+    var idx = added.findIndex(function(x){ return x.id===editingId; });
+    entry.id = editingId;
+    if(idx >= 0) added[idx] = entry;
+    editingId = null;
+  }else{
+    added.unshift(entry);
+  }
+  localStorage.setItem("slang_added_terms", JSON.stringify(added));
 
-render();
- });
+    expandedId = entry.id;
+    activeFilter = "all";
+    document.querySelectorAll(".fb").forEach(function(b,i){ if(i===0) b.classList.add("on"); else b.classList.remove("on"); });
+    document.getElementById("searchInput").value = "";
+    closeModal();
 
-document.getElementById("addBtn").addEventListener("click", function(){
-  document.getElementById("overlay").classList.add("show");
-  setTimeout(function(){ document.getElementById("f_term").focus(); }, 100);
-});
+  render();
 
-document.getElementById("cancelBtn").addEventListener("click", closeModal);
-document.getElementById("overlay").addEventListener("click", function(e){
-  if(e.target===this) closeModal();
-});
+    toast('✓ 已添加 "' + term + '"');
+  });
 
-document.getElementById("saveBtn").addEventListener("click", function(){
-  var term = document.getElementById("f_term").value.trim();
-  if(!term){ toast("请填写英文词汇 ✕"); return; }
-  var entry = {
-    id: Date.now(),
-    term: term,
-    pron: document.getElementById("f_pron").value.trim(),
-    lit:  document.getElementById("f_lit").value.trim(),
-    zh:   document.getElementById("f_zh").value.trim(),
-    en:   document.getElementById("f_en").value.trim(),
-    cat:  document.getElementById("f_cat").value
-  };
+  function closeModal(){
+    document.getElementById("overlay").classList.remove("show");
+    ["f_term","f_pron","f_lit","f_zh","f_en"].forEach(function(id){ document.getElementById(id).value=""; });
+  }
+
+  function toast(msg){
+    var el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    setTimeout(function(){ el.classList.remove("show"); }, 2500);
+  }
+
+  render();
+
   
-if(editingId){
-  var idx = added.findIndex(function(x){ return x.id===editingId; });
-  entry.id = editingId;
-  if(idx >= 0) added[idx] = entry;
-  editingId = null;
-}else{
-  added.unshift(entry);
-}
-localStorage.setItem("slang_added_terms", JSON.stringify(added));
+  function deleteTerm(id){
+    if(!confirm('Delete this term?')) return;
+    added = added.filter(function(t){ return t.id !== id; });
+    localStorage.setItem('slang_added_terms', JSON.stringify(added));
+    expandedId = null;
+    render();
+  }
 
-  expandedId = entry.id;
-  activeFilter = "all";
-  document.querySelectorAll(".fb").forEach(function(b,i){ if(i===0) b.classList.add("on"); else b.classList.remove("on"); });
-  document.getElementById("searchInput").value = "";
-  closeModal();
-  
-function deleteTerm(id){
-  if(!confirm('Delete this term?')) return;
-  added = added.filter(function(t){ return t.id !== id; });
-  localStorage.setItem('slang_added_terms', JSON.stringify(added));
-  expandedId = null;
+  function editTerm(id){
+    var t = added.find(function(x){ return x.id===id; });
+    if(!t) return;
+    editingId = id;
+    document.getElementById('f_term').value = t.term || '';
+    document.getElementById('f_pron').value = t.pron || '';
+    document.getElementById('f_lit').value = t.lit || '';
+    document.getElementById('f_zh').value = t.zh || '';
+    document.getElementById('f_en').value = t.en || '';
+    document.getElementById('f_cat').value = t.cat || 'misc';
+    document.getElementById('overlay').classList.add('show');
+  }
+
   render();
-}
 
-function editTerm(id){
-  var t = added.find(function(x){ return x.id===id; });
-  if(!t) return;
-
-  editingId = id;
-  document.getElementById('f_term').value = t.term || '';
-  document.getElementById('f_pron').value = t.pron || '';
-  document.getElementById('f_lit').value = t.lit || '';
-  document.getElementById('f_zh').value = t.zh || '';
-  document.getElementById('f_en').value = t.en || '';
-  document.getElementById('f_cat').value = t.cat || 'misc';
-
-  document.getElementById('overlay').classList.add('show');
-}
-
-render();
-
-  toast('✓ 已添加 "' + term + '"');
-});
-
-function closeModal(){
-  document.getElementById("overlay").classList.remove("show");
-  ["f_term","f_pron","f_lit","f_zh","f_en"].forEach(function(id){ document.getElementById(id).value=""; });
-}
-
-function toast(msg){
-  var el = document.getElementById("toast");
-  el.textContent = msg;
-  el.classList.add("show");
-  setTimeout(function(){ el.classList.remove("show"); }, 2500);
-}
-
-
-function deleteTerm(id){
-  if(!confirm('Delete this term?')) return;
-  added = added.filter(function(t){ return t.id !== id; });
-  localStorage.setItem('slang_added_terms', JSON.stringify(added));
-  expandedId = null;
-  render();
-}
-
-function editTerm(id){
-  var t = added.find(function(x){ return x.id===id; });
-  if(!t) return;
-
-  editingId = id;
-  document.getElementById('f_term').value = t.term || '';
-  document.getElementById('f_pron').value = t.pron || '';
-  document.getElementById('f_lit').value = t.lit || '';
-  document.getElementById('f_zh').value = t.zh || '';
-  document.getElementById('f_en').value = t.en || '';
-  document.getElementById('f_cat').value = t.cat || 'misc';
-
-  document.getElementById('overlay').classList.add('show');
-}
-
-render();
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then((reg) => {
+        console.log('Service Worker registered:', reg);
+      }).catch((err) => {
+        console.log('Service Worker registration failed:', err);
+      });
+    });
+  }
 
 </script>
